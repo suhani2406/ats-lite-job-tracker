@@ -16,6 +16,20 @@ import { toast } from "sonner";
 
 const PAGE_SIZE = 9;
 
+const SKELETON_KEYS = ["sk-a", "sk-b", "sk-c", "sk-d", "sk-e", "sk-f"];
+
+const GRID_VARIANTS = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.04 } },
+};
+
+const CARD_VARIANTS = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.35 } },
+};
+
+const CARD_EXIT = { opacity: 0, y: -10 };
+
 export default function DashboardPage() {
   const { user, logout } = useAuth();
   const [jobs, setJobs] = useState([]);
@@ -137,9 +151,9 @@ export default function DashboardPage() {
         {/* Content */}
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Array.from({ length: 6 }).map((_, i) => (
+            {SKELETON_KEYS.map((key, i) => (
               <div
-                key={i}
+                key={key}
                 className="h-48 border border-border rounded-lg bg-card/50 animate-pulse"
                 data-testid={`job-skeleton-${i}`}
               />
@@ -157,21 +171,15 @@ export default function DashboardPage() {
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
               initial="hidden"
               animate="visible"
-              variants={{
-                hidden: {},
-                visible: { transition: { staggerChildren: 0.04 } },
-              }}
+              variants={GRID_VARIANTS}
             >
               <AnimatePresence>
                 {jobs.map((j) => (
                   <motion.div
                     key={j.id}
                     layout
-                    variants={{
-                      hidden: { opacity: 0, y: 16 },
-                      visible: { opacity: 1, y: 0, transition: { duration: 0.35 } },
-                    }}
-                    exit={{ opacity: 0, y: -10 }}
+                    variants={CARD_VARIANTS}
+                    exit={CARD_EXIT}
                   >
                     <JobCard
                       job={j}

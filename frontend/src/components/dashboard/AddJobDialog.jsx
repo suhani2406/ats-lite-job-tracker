@@ -19,20 +19,20 @@ import {
 } from "@/components/ui/select";
 import { STATUSES, STATUS_STYLES } from "@/lib/statuses";
 
-const initialForm = {
+const INITIAL_FORM = Object.freeze({
   title: "",
   company: "",
   location: "",
   link: "",
   status: "Applied",
-};
+});
 
 export default function AddJobDialog({ open, onOpenChange, onSubmit }) {
-  const [form, setForm] = useState(initialForm);
+  const [form, setForm] = useState(INITIAL_FORM);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    if (!open) setForm(initialForm);
+    if (!open) setForm(INITIAL_FORM);
   }, [open]);
 
   const update = (k) => (e) => setForm({ ...form, [k]: e.target.value });
