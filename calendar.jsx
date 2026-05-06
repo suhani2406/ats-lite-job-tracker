@@ -31,7 +31,7 @@ export default function JobCard({ job, statuses, onStatusChange, onDelete }) {
       className="group relative border border-border bg-card rounded-lg p-6 transition-all duration-200 hover:border-muted-foreground/30 hover:-translate-y-0.5 flex flex-col"
       data-testid={`job-card-${job.id}`}
     >
-      {/* Accent bar */}
+      {}
       <div
         className="absolute top-0 left-0 h-px w-16 transition-all group-hover:w-24"
         style={{ background: style.accent }}
